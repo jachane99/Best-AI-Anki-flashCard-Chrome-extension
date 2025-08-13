@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Anki Flashcards — Documentation</title>
+  <meta name="description" content="Detailed documentation for the Smart Anki Flashcards Chrome extension: install, features, keyboard shortcuts, backups, privacy, build & ship." />
+  <link rel="icon" href="img/icon-128.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { start: '#6d28d9', end: '#60a5fa' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .toc-link.active { color: rgb(15,23,42); font-weight: 600; }
+    /* Hide default marker on details/summary for FAQ accordions */
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="antialiased text-slate-900">
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-100">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="img/icon-128.png" alt="Smart Anki Flashcards icon" class="h-8 w-8 rounded" />
+        <span class="font-semibold">Smart Anki Flashcards</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#overview" class="hover:text-slate-600">Overview</a>
+        <a href="#install" class="hover:text-slate-600">Install</a>
+        <a href="#features" class="hover:text-slate-600">Features</a>
+        <a href="#demo" class="hover:text-slate-600">Demo</a>
+        <a href="#shortcuts" class="hover:text-slate-600">Shortcuts</a>
+        <a href="#tech" class="hover:text-slate-600">Tech</a>
+        <a href="#security" class="hover:text-slate-600">Security</a>
+        <a href="#faq" class="hover:text-slate-600">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="https://chloemade.gumroad.com/l/bestaiankiflashcardchromeextension" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-white text-sm font-medium shadow hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400">Get this extension</a>
+      </div>
+    </div>
+  </header>
+  <main id="top">
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-fuchsia-700 via-purple-700 to-blue-500 opacity-10"></div>
+      <div class="mx-auto max-w-7xl px-4 py-14 relative">
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">Smart Anki Flashcards Documentation</h1>
+        <p class="mt-4 max-w-3xl text-slate-600">Local-first, privacy-focused, AI-powered Chrome extension to create, learn, and export spaced-repetition flashcards. This page expands on installation, features, backups, shortcuts, and developer setup.</p>
+      </div>
+    </section>
+    <section class="mx-auto max-w-7xl px-4 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+        <aside class="md:col-span-3">
+          <div class="sticky top-[76px] space-y-2 text-sm">
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#overview">Overview</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#install">Install & Use</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#features">Core Features</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#demo">Demo</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#shortcuts">Keyboard Shortcuts</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#tech">For Developers</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#project-structure">Project Structure</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#build">Build & Ship</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#security">Security, Privacy, CSP</a>
+            <a class="toc-link block text-slate-500 hover:text-slate-800" href="#support">Support</a>
+          </div>
+        </aside>
+        <div class="md:col-span-9 space-y-16">
+          <section id="overview">
+            <h2 class="text-2xl font-bold">Overview</h2>
+            <p class="mt-2 text-slate-700">Turn any web page into spaced‑repetition flashcards with AI. Highlight text, press your shortcut, and save well‑formed Q/A cards into decks. Review with a keyboard‑first flow and track progress with a gamified dashboard.</p>
+
+            <!-- Demo GIF -->
+            <div class="mt-6">
+              <img src="img/quickdemo.gif" alt="Quick demo — create and learn cards" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-3xl" />
+            </div>
+
+                        <!-- Easy learning -->
+            <div class="mt-10">
+              <h3 class="text-xl font-semibold">Easy learning</h3>
+              <p class="mt-2 text-slate-700">Keyboard‑first review with spaced repetition (Easy / Good / Again). Learn faster with focused prompts and add images to reinforce concepts.</p>
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <figure class="rounded-lg border border-slate-200 shadow-sm p-2">
+                  <img src="img/learning-card.png" alt="Learning session card" class="rounded-md" />
+                  <figcaption class="mt-2 text-sm text-slate-600">Keyboard‑centric review flow to keep you in the zone.</figcaption>
+                </figure>
+                <figure class="rounded-lg border border-slate-200 shadow-sm p-2">
+                  <img src="img/image-card.png" alt="Learning with image" class="rounded-md" />
+                  <figcaption class="mt-2 text-sm text-slate-600">Image‑enhanced recall helps concepts stick.</figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <!-- Easy card creation -->
+            <div class="mt-10">
+              <h3 class="text-xl font-semibold">Easy card creation anytime</h3>
+              <p class="mt-2 text-slate-700">Select text on any web page and turn it into high‑quality Q/A cards in seconds.</p>
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <figure class="rounded-lg border border-slate-200 shadow-sm p-2">
+                  <img src="img/add-card-demo-to-deck.gif" alt="Question/Answer card preview" class="rounded-md" />
+                  <figcaption class="mt-2 text-sm text-slate-600">Creating cards 
+should be ezpz with one-click hotkey and AI</figcaption>
+                </figure> 
+                <figure class="rounded-lg border border-slate-200 shadow-sm p-2">
+                  <img src="img/ai-card-creator.png" alt="Card with image attachment" class="rounded-md" />
+                  <figcaption class="mt-2 text-sm text-slate-600">Upload any text documents to generate cards with AI</figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="mt-10">
+              <h3 class="text-xl font-semibold">Dashboard</h3>
+              <p class="mt-2 text-slate-700">Track sessions, streaks, and deck progress with a clean, motivating dashboard.</p>
+              <div class="mt-4">
+                <img src="img/dashboard.png" alt="Dashboard overview" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-3xl" />
+              </div>
+            </div>
+
+            <!-- Sharing -->
+            <div class="mt-10">
+              <h3 class="text-xl font-semibold">Sharing</h3>
+              <p class="mt-2 text-slate-700">Export single cards or entire decks to Anki for easy sharing or migration.</p>
+              <div class="mt-4">
+                <img src="img/export.png" alt="Export to Anki" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-3xl" />
+              </div>
+            </div>
+
+            <!-- Customize for your learning -->
+            <div class="mt-10">
+              <h3 class="text-xl font-semibold">Customize for your learning</h3>
+              <p class="mt-2 text-slate-700">Tune settings, enable automatic backups, and set hotkeys to match your workflow.</p>
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <img src="img/settings.png" alt="Settings" class="rounded-lg border border-slate-200 shadow-sm" />
+                <img src="img/backup.png" alt="Backups configuration" class="rounded-lg border border-slate-200 shadow-sm" />
+                <img src="img/shortcut.png" alt="Hotkey setup" class="rounded-lg border border-slate-200 shadow-sm" />
+              </div>
+            </div>
+          </section>
+          <section id="install">
+            <h2 class="text-2xl font-bold">Install & Use (No code)</h2>
+            <ol class="mt-4 list-decimal list-inside space-y-2 text-slate-700">
+              <li>Get the files: unzip a prebuilt dist/ or build yourself (see Build & Ship).</li>
+              <li>Open Chrome → <a class="text-sky-600 underline" href="chrome://extensions">chrome://extensions</a> → enable Developer mode → Load unpacked → select the dist/ folder.
+                <div class="mt-2">
+                  <img src="img/installation-instruction.png" alt="Chrome Extensions page showing Developer mode and Load unpacked" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-3xl" />
+                </div>
+              </li>
+              <li>Pin the extension from the toolbar Extensions menu.
+                <div class="mt-2">
+                  <img src="img/pin-extension.png" alt="Chrome toolbar pin extension" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-3xl" />
+                </div>
+              </li>
+              <li>Assign shortcuts at <a class="text-sky-600 underline" href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a> (defaults below).</li>
+              <li>Optional: For silent backups, in <a class="text-sky-600 underline" href="chrome://settings/downloads">chrome://settings/downloads</a> turn OFF “Ask where to save each file before downloading”.</li>
+              <li>Use it: highlight text → press Create Cards shortcut → choose deck → review and save.</li>
+            </ol>
+            <div class="mt-6 rounded-xl border border-slate-200 p-5 bg-slate-50">
+              <h3 class="font-semibold">Defaults</h3>
+              <p class="mt-1 text-sm text-slate-600">Create: Mac Command+Shift+Q, Windows/Linux Alt+Shift+Q. Reload: Command/Alt+Shift+R. Close: Command/Alt+Shift+X.</p>
+              <p class="mt-1 text-xs text-slate-500">Customize in <a class="text-sky-600 underline" href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a>.</p>
+            </div>
+          </section>
+          <section id="features">
+            <h2 class="text-2xl font-bold">Core Features</h2>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="rounded-xl border border-slate-200 p-5">
+                <h3 class="font-semibold">AI‑powered creation</h3>
+                <p class="mt-2 text-slate-700">Generate concise Q/A from selected text or uploads. Bring your own API key (OpenAI, Gemini) for low cost and control.</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-5">
+                <h3 class="font-semibold">Side Panel workspace</h3>
+                <p class="mt-2 text-slate-700">Organize decks, add/edit cards, and study—without leaving the page.</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-5">
+                <h3 class="font-semibold">Gamified dashboard</h3>
+                <p class="mt-2 text-slate-700">Track streaks and progress with a clean, motivating dashboard.</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-5">
+                <h3 class="font-semibold">Local‑first storage</h3>
+                <p class="mt-2 text-slate-700">All data lives in your browser via sql.js (WASM SQLite). No servers.</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-5">
+                <h3 class="font-semibold">Exports</h3>
+                <p class="mt-2 text-slate-700">Export single cards or full decks to Anki with sensible fallbacks.</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-5">
+                <h3 class="font-semibold">Backups</h3>
+                <p class="mt-2 text-slate-700">Automatic backups to Downloads, plus manual “Backup now” and one‑click restore.</p>
+              </div>
+            </div>
+          </section>
+          <section id="demo">
+            <h2 class="text-2xl font-bold">Demo</h2>
+            <p class="mt-2 text-slate-700">Select any text and review new cards</p>
+            <div class="mt-4">
+              <img src="img/add-card-demo-to-deck.gif" alt="Add card demo" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-3xl" />
+            </div>
+            <p class="mt-2 text-slate-700">Learning dashboard</p>
+            <div class="mt-6">
+              <img src="img/dashboard-gif.gif" alt="Learning dashboard gif" class="rounded-lg border border-slate-200 shadow-sm w-full max-w-2xl mx-auto" />
+            </div>
+          </section>
+          <section id="shortcuts">
+            <h2 class="text-2xl font-bold">Keyboard Shortcuts (defaults)</h2>
+            <ul class="mt-4 space-y-2 text-slate-700">
+              <li><span class="font-semibold">Create cards from selection:</span> Mac Command+Shift+Q · Windows/Linux Alt+Shift+Q</li>
+              <li><span class="font-semibold">Reload extension:</span> Mac Command+Shift+R · Windows/Linux Alt+Shift+R</li>
+              <li><span class="font-semibold">Close extension (reload):</span> Mac Command+Shift+X · Windows/Linux Alt+Shift+X</li>
+            </ul>
+            <p class="mt-2 text-sm text-slate-600">Change these at <a class="text-sky-600 underline" href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a>.</p>
+          </section>
+          <section id="tech">
+            <h2 class="text-2xl font-bold">Technical details</h2>
+            <div class="mt-4 space-y-4 text-slate-700">
+              <p><span class="font-semibold">Automatic backups:</span> Enable scheduled backups and use “Backup now” from the Options or Side Panel Settings.</p>
+              <p><span class="font-semibold">Privacy-first:</span> Data never leaves your browser. Database lives in IndexedDB via sql.js (WASM).</p>
+              <p><span class="font-semibold">Tech stack:</span> React, TypeScript, Tailwind, Vite, sql.js.</p>
+            </div>
+          </section>
+          <section id="project-structure">
+            <h2 class="text-2xl font-bold">Project Structure</h2>
+            <ul class="mt-4 space-y-2 text-slate-700">
+              <li>Side panel UI: src/scripts/sidepanel/sidepanel.html, src/scripts/sidepanel/index.tsx</li>
+              <li>Options UI: src/scripts/options/options.html, src/scripts/options/index.tsx</li>
+              <li>Service worker: src/scripts/service-worker/service-worker.ts</li>
+              <li>Content script: src/scripts/content/index.tsx</li>
+              <li>SQLite service: src/utils/sqlite.ts</li>
+              <li>Browser utilities: src/utils/browser.ts</li>
+              <li>Manifest generator: src/manifest.ts</li>
+            </ul>
+          </section>
+          <section id="build">
+            <h2 class="text-2xl font-bold">Build & Ship</h2>
+            <ol class="mt-4 list-decimal list-inside space-y-2 text-slate-700">
+              <li>Run: npm run build</li>
+              <li>Verify dist/ and test in Chrome via Load unpacked</li>
+              <li>Create a zip of dist for the Chrome Web Store</li>
+            </ol>
+            <p class="mt-4 text-slate-700">Vite builds entries for Options, Side Panel, and Service Worker. Post-build, the manifest is generated from project metadata, and sql.js WASM is copied into the bundle.</p>
+          </section>
+          <section id="security">
+            <h2 class="text-2xl font-bold">Security, Privacy, and CSP</h2>
+            <p class="mt-2 text-slate-700">Only the text you select is sent to AI providers. Everything else stays on your device. Permissions include downloads, alarms, notifications, storage, scripting, tabs, activeTab, sidePanel, commands, contextMenus, and host permissions for http/https to read selections.</p>
+            <p class="mt-2 text-slate-700">CSP allows connect-src to AI endpoints, data/blob images, and wasm execution for sql.js.</p>
+          </section>
+          <section id="faq">
+            <h2 class="text-2xl font-bold">FAQ</h2>
+            <div class="mt-6 space-y-4">
+
+              <!-- How do I use the AI feature for free? -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">How do I use the AI feature for free?</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700 space-y-3">
+                  <p>You can use Google’s Gemini models with a generous free tier via Google AI Studio. You don't even need to input credit card.</p>
+                  <ol class="list-decimal list-inside space-y-2">
+                    <li>Go to <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="text-sky-600 underline">Google AI Studio</a> and sign in.</li>
+                    <li>Create an API key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" class="text-sky-600 underline">API Keys</a>.</li>
+                    <li>Copy your key and open the extension’s Settings → AI Provider → choose Gemini → paste your key.</li>
+                    <li>Save. Now card generation will use Gemini.</li>
+                  </ol>
+                  <p class="text-sm text-slate-600">Free tier details: see <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener" class="text-sky-600 underline">Gemini pricing</a>. The free tier is generous for personal use but subject to change.</p>
+                </div>
+              </details>
+
+              <!-- How do I level up? -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">How do I level up?</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700 space-y-4">
+                  <div>
+                    <div class="font-medium">How you earn XP</div>
+                    <ul class="list-disc list-inside mt-1">
+                      <li>Again = 0 XP</li>
+                      <li>Good = +10 XP</li>
+                      <li>Easy = +20 XP</li>
+                      <li>XP adds up every time you rate a card after seeing the answer.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div class="font-medium">How levels work</div>
+                    <ul class="list-disc list-inside mt-1">
+                      <li>Every 200 XP = +1 level.</li>
+                      <li>Formula: Level = 1 + floor(total XP ÷ 200).</li>
+                      <li>Example: 230 XP → Level 2 with 30/200 toward Level 3.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div class="font-medium">Progress bar to next level</div>
+                    <ul class="list-disc list-inside mt-1">
+                      <li>The purple bar shows how far you are through the current 200‑XP step.</li>
+                      <li>“+XP today” and “+XP last 7d” show recent gains.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div class="font-medium">Streaks (separate from levels)</div>
+                    <ul class="list-disc list-inside mt-1">
+                      <li>Streak = number of days in a row with at least one review.</li>
+                      <li>Streaks don’t change XP or levels; they’re just a motivation metric.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div class="font-medium">Notes</div>
+                    <ul class="list-disc list-inside mt-1">
+                      <li>No daily caps and no penalties: you simply gain XP from Good/Easy ratings.</li>
+                      <li>Keep studying: more Good/Easy ratings = faster level ups.</li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+
+              <!-- Does it work on Mac? -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">Does it work on Mac?</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700">
+                  Yes. Default shortcuts on Mac use Command+Shift (e.g., Command+Shift+Q to create from selection).
+                </div>
+              </details>
+
+              <!-- Where are my cards stored? -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">IMPORTANT! PLEASE READ! Where are my cards stored?</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700">
+                  Cards are stored locally using a lightweight SQL database running in the browser (WebAssembly). No server required. However, if you clear your browser, data will be lost. Please ensure you back up your data by downloading it to your local machine regularly.
+                </div>
+              </details>
+
+              <!-- Will you read my browsing data? -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">Will you read my browsing data?</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700">
+                  The extension processes only the text you explicitly select to create cards. Everything else stays on your device.
+                </div>
+              </details>
+
+              <!-- Can I change shortcuts? -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">Can I change shortcuts?</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700">
+                  Yes. Open <a class="text-sky-600 underline" href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a> to customize keys for your system.
+                </div>
+              </details>
+
+              <!-- Terms & Conditions -->
+              <details class="group rounded-xl border border-slate-200 p-4">
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <span class="font-semibold">Terms & Conditions</span>
+                  <svg class="h-5 w-5 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-3 text-slate-700 space-y-3">
+                  <p>This extension is provided “as is” without warranties of any kind. Use at your own risk. AI-generated content can be inaccurate or incomplete.</p>
+                  <ul class="list-disc list-inside space-y-1">
+                    <li>No warranties: no guarantee of accuracy, availability, or fitness for a particular purpose.</li>
+                    <li>Data responsibility: your data is stored locally in the browser; clearing site data may delete it. Please back up regularly.</li>
+                    <li>Compliance: you must comply with all applicable laws and any third‑party service terms (e.g., AI providers such as Google Gemini).</li>
+                    <li>Limitation of liability: to the maximum extent permitted by law, we are not liable for any losses or damages arising from use of this software.</li>
+                    <li>Changes: features and terms may change without notice.</li>
+                    <li>Contact: hello.chloemakes99@gmail.com</li>
+                  </ul>
+                  <p class="text-sm text-slate-600">By installing or using this extension, you agree to these terms.</p>
+                </div>
+              </details>
+
+            </div>
+          </section>
+          <section id="support">
+            <h2 class="text-2xl font-bold">Support</h2>
+            <p class="mt-2 text-slate-700">Email: hello.chloemakes99@gmail.com</p>
+            <p class="mt-1 text-slate-700">Readme on GitHub for highlights and updates.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section class="mx-auto max-w-7xl px-4 py-12">
+      <div class="rounded-2xl bg-gradient-to-r from-fuchsia-700 to-blue-400 p-1">
+        <div class="rounded-2xl bg-white p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold">Start remembering more today</h3>
+            <p class="mt-2 text-slate-600">Install in seconds. Create and learn without leaving your browser.</p>
+          </div>
+          <a href="https://chloemade.gumroad.com/l/bestaiankiflashcardchromeextension" class="inline-flex items-center justify-center rounded-md bg-slate-900 px-6 py-3 text-white font-semibold shadow hover:bg-slate-800">Get this extension now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="border-t border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="img/icon-128.png" alt="Smart Anki Flashcards icon" class="h-6 w-6 rounded" />
+        <span class="text-sm text-slate-600">Smart Anki Flashcards</span>
+      </div>
+      <div class="text-sm text-slate-500">© <span id="year"></span> All rights reserved.</div>
+    </div>
+  </footer>
+  <script>
+    // Simple active section highlighting
+    const links = Array.from(document.querySelectorAll('.toc-link'));
+    const headings = links.map(a => document.querySelector(a.getAttribute('href')));
+    const onScroll = () => {
+      const y = window.scrollY + 100;
+      let active = 0;
+      for (let i = 0; i < headings.length; i++) {
+        const el = headings[i];
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (top <= y) active = i;
+      }
+      links.forEach((l, i) => l.classList.toggle('active', i === active));
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
